@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>한양대 수학과와 함께하는 겨울방학 수1 완성반</title>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
     <style>
         /* --- 기본 스타일 설정 --- */
         :root {
@@ -14,12 +17,15 @@
         }
 
         body {
+            /* Pretendard 폰트 우선 적용 */
             font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
             margin: 0;
             padding: 0;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--bg-color);
+            /* 한국어 단어 단위 줄바꿈 (가독성 향상) */
+            word-break: keep-all; 
         }
 
         .container {
@@ -36,7 +42,7 @@
             padding: 60px 20px;
             text-align: center;
         }
-        header h1 { margin: 0; font-size: 2.0rem; font-weight: 700; word-break: keep-all;}
+        header h1 { margin: 0; font-size: 2.0rem; font-weight: 700; line-height: 1.3; }
         header p { margin: 15px 0 0; font-size: 1.1rem; opacity: 0.9; }
         .badge {
             display: inline-block;
@@ -62,7 +68,7 @@
             font-size: 1.5rem;
         }
         
-        /* --- 텍스트 강조 박스 (사진 내용 반영) --- */
+        /* --- 텍스트 강조 박스 --- */
         .quote-box {
             background-color: #f0f7ff;
             border-left: 4px solid var(--primary-color);
@@ -107,7 +113,7 @@
         }
         .arrow { margin: 0 20px; font-size: 1.5rem; color: #999; }
 
-        /* --- 시간표 테이블 --- */
+        /* --- 시간표 테이블 (PC 기본) --- */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -123,28 +129,28 @@
 
         /* --- 마감(Sold Out) 처리용 스타일 --- */
         .closed {
-            background-color: #f2f2f2; /* 배경을 회색으로 */
-            color: #aaa; /* 글자를 흐리게 */
-            pointer-events: none; /* 선택 불가능한 느낌 */
+            background-color: #f2f2f2;
+            color: #aaa;
+            pointer-events: none;
         }
         .closed strong {
-            color: #aaa !important; /* 반 이름 강조 해제 */
-            text-decoration: line-through; /* 반 이름 취소선 */
+            color: #aaa !important;
+            text-decoration: line-through;
         }
-        /* 마감 뱃지 자동 생성 (수정할 필요 없음) */
         .closed td:first-child::after {
-            content: "🚫 마감"; /* 여기에 뜨는 글자 */
+            content: "🚫 마감";
             display: block;
             margin-top: 5px;
             font-size: 0.85rem;
-            color: #e03131; /* 붉은색 텍스트 */
+            color: #e03131;
             font-weight: 800;
             background: #fff0f0;
             border: 1px solid #e03131;
             border-radius: 4px;
             padding: 2px 0;
-            text-decoration: none; /* 뱃지는 취소선 없음 */
+            text-decoration: none;
         }
+
         /* --- 시범수업안내 --- */
         .trial-box {
             border: 2px dashed var(--accent-color);
@@ -182,35 +188,34 @@
             border-radius: 50px;
             transition: background 0.3s;
             display: inline-block;
+            box-shadow: 0 4px 15px rgba(15, 76, 129, 0.3); /* 버튼 그림자 추가 */
         }
         .cta-btn:hover { background-color: #0a355c; }
 
-        /* --- 강의 샘플 비디오 스타일 (수정된 부분) --- */
+        /* --- 강의 샘플 비디오 --- */
         .video-container {
             display: flex;
             flex-direction: column;
-            gap: 30px; /* 간격 늘림 */
+            gap: 30px;
             margin-top: 20px;
         }
         .video-item {
             background: #f9f9f9;
             padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* 그림자 강조 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
         }
-        .video-item a { text-decoration: none; color: inherit; display: block; } /* 블록으로 변경 */
+        .video-item a { text-decoration: none; color: inherit; display: block; }
         .video-thumb {
-            width: 100%; /* 너비를 100%로 키움 */
+            width: 100%;
             height: auto;
             border-radius: 5px;
-            margin-bottom: 10px; /* 제목과 간격 */
+            margin-bottom: 10px;
             transition: transform 0.3s;
         }
-        .video-item a:hover .video-thumb {
-            transform: scale(1.02); /* 마우스 오버 시 약간 확대 효과 */
-        }
+        .video-item a:hover .video-thumb { transform: scale(1.02); }
         .video-title {
-            font-weight: 800; /* 굵기 강조 */
+            font-weight: 800;
             font-size: 1.1rem;
             color: var(--primary-color);
         }
@@ -219,28 +224,31 @@
             color: #666;
             margin-top: 5px;
         }
-        .video-content {
-            padding: 10px 5px;
-        }
+        .video-content { padding: 10px 5px; }
 
 
-        /* 모바일 대응 */
-/* --- 모바일 대응 통합 스타일 --- */
+        /* ------------------------------------------- */
+        /* [중요] 모바일 최적화 및 반응형 통합 스타일 */
+        /* ------------------------------------------- */
         @media (max-width: 600px) {
-            /* [1] 기존 레이아웃 최적화 (헤더, 비디오, 시스템 흐름 등) */
-            .info-grid { grid-template-columns: 1fr; }
-            .system-flow { flex-direction: column; }
+            
+            /* [1] 레이아웃 및 여백 최적화 */
+            /* 좁은 화면에서 여백을 조금 줄여서 내용이 더 잘 보이게 함 */
+            header { padding: 50px 20px; }
+            section { padding: 35px 20px; } /* 좌우 여백 25px -> 20px */
+            
+            header h1 { font-size: 1.6rem; } /* 제목 크기 조정 */
+            .info-grid { grid-template-columns: 1fr; } /* 그리드 한 줄로 */
+            .system-flow { flex-direction: column; } /* 화살표 방향 변경 */
             .arrow { transform: rotate(90deg); margin: 15px 0; }
-            header h1 { font-size: 1.6rem; }
+            
+            /* 비디오 썸네일과 텍스트 정렬 */
             .video-item a { flex-direction: column; align-items: flex-start; }
             .video-thumb { margin-right: 0; margin-bottom: 10px; width: 100%; }
 
             /* [2] 시간표 테이블 -> 카드형 변환 스타일 */
-            
             /* 테이블 요소를 블록으로 변경하여 세로로 쌓이게 함 */
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
+            table, thead, tbody, th, td, tr { display: block; }
 
             /* PC용 헤더(구분, 시간, 내용) 숨김 */
             thead tr {
@@ -252,10 +260,10 @@
             /* 각 행(tr)을 하나의 '카드' 박스로 디자인 */
             tr {
                 border: 1px solid #e0e0e0;
-                border-radius: 12px; /* 둥근 모서리 */
-                margin-bottom: 20px; /* 카드 간 간격 */
+                border-radius: 12px;
+                margin-bottom: 20px;
                 background: white;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* 그림자 효과 */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* 부드러운 그림자 */
                 overflow: hidden;
             }
 
@@ -268,11 +276,9 @@
                 text-align: left;
                 font-size: 0.95rem;
             }
-
-            /* 마지막 줄은 밑줄 제거 */
             td:last-child { border-bottom: none; }
 
-            /* 첫 번째 셀(반 이름)을 카드 헤더로 꾸미기 */
+            /* 첫 번째 셀(반 이름)을 카드 헤더로 */
             td:first-child {
                 background-color: var(--primary-color);
                 color: white;
@@ -282,32 +288,21 @@
                 padding: 10px;
             }
 
-            /* 두 번째 셀(시간) 앞에 아이콘 추가 */
-            td:nth-of-type(2)::before {
-                content: "⏰ ";
-                font-weight: bold;
-                margin-right: 5px;
-            }
-
-            /* 세 번째 셀(내용) 앞에 아이콘 추가 */
-            td:nth-of-type(3)::before {
-                content: "📝 ";
-                font-weight: bold;
-                margin-right: 5px;
-            }
+            /* 아이콘 추가로 가독성 확보 */
+            td:nth-of-type(2)::before { content: "⏰ "; font-weight: bold; margin-right: 5px; }
+            td:nth-of-type(3)::before { content: "📝 "; font-weight: bold; margin-right: 5px; }
 
             /* [3] 마감된 반(closed) 모바일 전용 스타일 */
             .closed {
-                background-color: #f8f9fa; /* 전체 배경 회색 */
-                box-shadow: none; /* 그림자 제거 */
-                border: 1px dashed #ccc; /* 테두리 점선 */
+                background-color: #f8f9fa;
+                box-shadow: none;
+                border: 1px dashed #ccc;
             }
             .closed td:first-child {
-                background-color: #adb5bd; /* 헤더 회색 처리 */
+                background-color: #adb5bd;
                 text-decoration: line-through;
                 color: #eee;
             }
-            /* 마감 뱃지 스타일 */
             .closed td:first-child::after {
                 content: "🚫 마감";
                 display: inline-block;
@@ -320,6 +315,7 @@
                 text-decoration: none;
                 vertical-align: middle;
                 font-weight: 800;
+                margin-top: 0; /* PC용 margin-top 제거 */
             }
         }
     </style>
@@ -327,14 +323,12 @@
 <body>
 
     <div class="container">
-        <!-- 헤더 -->
         <header>
             <span class="badge">예비 고2 대상/ 한양대 수학과</span>
             <h1>겨울방학 '수1' 완성반<br>소수정예 드림팀 모집</h1>
             <p>이민철 선생님과 함께하는<br>고난도 킬러 문항 공략 프로젝트</p>
         </header>
 
-        <!-- 1. 우리의 철학 -->
         <section>
             <h2>01. 왜 '예비 고2' 인가요?</h2>
             <div class="quote-box">
@@ -353,14 +347,13 @@
             </p>
         </section>
 
-        <!-- 2. 시스템 소개 -->
         <section>
             <h2>02. 빈틈없는 "이중 관리" 시스템</h2>
 
             <div style="background: #fff8e1; border: 1px solid #ffe082; padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 25px; color: #444;">
                 <div style="margin-bottom: 12px; font-size: 1.1rem;">
                     📍 <strong>장소: 범계역 인근 스터디룸<br>
-                         (도보 2분거리)</strong>
+                       (도보 2분거리)</strong>
                 </div>
                 <div style="display: inline-block; background: rgba(255, 255, 255, 0.644); color: #FF6B6B; border: 1px solid #FFD1D1; padding: 3px 10px; border-radius: 20px; font-weight: bold; font-size: 0.95rem;">
                     * 비용 전액 강사 부담
@@ -401,7 +394,6 @@
             </ul>
         </section>
 
-        <!-- 3. 모집 정보 -->
         <section>
             <h2>03. 모집 대상 및 목표</h2>
             <div class="info-grid">
@@ -420,7 +412,7 @@
                 <strong>📅 기간 구성 (6주 완성)</strong>
                 
                 <div style="margin-top: 0px; background: #f9f9f9; padding: 15px; border-radius: 8px;">
-                    <p style="margin: 5; font-size: 0.95rem; color: #555; line-height: 1.5;">
+                    <p style="margin: 5px; font-size: 0.95rem; color: #555; line-height: 1.5;">
                         <strong>수1 집중 올인원 과정</strong>
                     </p>
 
@@ -435,7 +427,6 @@
             </div>
         </section>
 
-        <!-- 4. 시간표 -->
         <section>
             <h2>04. 수업 시간표</h2>
             <p><strong>수업:</strong> 월 / 수 / 금 (수업 + 필수 클리닉) +  토 (보충 클리닉)     <span style="font-size: 0.85em; color: #888; display:inline-block; margin-top:5px;">* 토요일(보충)은 선택사항</span></p>
@@ -484,7 +475,6 @@
             </div>
         </section>
 
-        <!-- 5. 교재 및 콘텐츠 -->
         <section>
             <h2>05. 교재 및 커리큘럼</h2>
             <ul>
@@ -494,7 +484,6 @@
             </ul>
         </section>
         
-        <!-- 6. 강의 샘플 영상 (제목 수정됨) -->
         <section>
             <h2>06. 선생님 강의력 확인하기</h2>
             <p style="margin-bottom: 20px; color: #555; text-align: center;">한양대 수학과 전공자의 깊이 있는 해설을 직접 확인해보세요.</p>
@@ -524,7 +513,6 @@
             </div>
         </section>
 
-        <!-- 7. 시범 수업 및 수강료 -->
         <section>
             <h2>07. 시범 수업 및 수강료 안내</h2>
             
@@ -539,7 +527,6 @@
                     </strong>
                     <p style="margin: 8px 0 0 0; font-size: 0.9rem; color: #444; line-height: 1.5;">
                         부담 없는 <strong>'주 단위 결제'</strong> 시스템<br>
-                        <!-- <span style="font-size: 0.85rem; color: #666;">(수업이 맘에 들지 않으면 100% 환불해드립니다)</span> -->
                     </p>
                 </div>
             </div>
@@ -554,7 +541,6 @@
             
         </section>
 
-        <!-- 하단 CTA -->
         <div class="cta-section">
             <h3>이번 겨울방학, 수학을 확실하게 잡으세요.</h3>
             <p>한양대 수학과 선생님과 함께하는<br>소수정예 드림팀</p>
@@ -562,9 +548,9 @@
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScShjA2Gks6HSppfEvokio7PmMFRhFidCdoZgEYfFukwQ7J8g/viewform?usp=dialog" class="cta-btn" target="_blank">시범 수업 및 상담 신청하기</a>
             
             <div style="margin-top: 20px; color: #555; font-size: 1rem;">
-                문의 전화 : <strong>010-6558-8544</strong><br><br>
+                문의 전화 : <strong><a href="tel:01065588544" style="color: inherit; text-decoration: none;">010-6558-8544</a></strong><br><br>
                 카카오톡 : <a href="http://pf.kakao.com/_BxopYn/chat" target="_blank" style="text-decoration: underline; color: var(--primary-color); font-weight: bold;">이민철수학팀</a><br><br>
-                문의 전화2 : <strong>010-9186-3835</strong><br>
+                문의 전화2 : <strong><a href="tel:01091863835" style="color: inherit; text-decoration: none;">010-9186-3835</a></strong><br>
             </div>
         </div>
     </div>
