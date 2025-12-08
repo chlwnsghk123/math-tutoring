@@ -90,6 +90,14 @@
             margin-bottom: 24px;
         }
 
+        .gray-icon {
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%); /* 사파리/크롬 호환 */
+            display: inline-block; /* 필터 적용을 위해 인라인 블록으로 설정 */
+            font-style: normal; /* 기울임 방지 */
+        }
+
+
         header h1 {
             font-size: 2.2rem;
             line-height: 1.25;
@@ -132,6 +140,7 @@
 
         /* --- [Cards & Boxes] --- */
         
+
         /* 1. Quote Box: 심플한 타이포그래피 중심 */
         .quote-box {
             position: relative;
@@ -178,6 +187,19 @@
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         .flow-box:active { transform: scale(0.98); }
+
+        .flow-box.step-1 {
+            background: linear-gradient(145deg, #ffffff 0%, #f3f6f8 100%);
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(15, 23, 42, 0.05);
+        }
+
+        .flow-box.step-2 {
+            background: linear-gradient(145deg, #ffffff 0%, #fff5f5 100%);
+            box-shadow: 0 10px 25px -5px rgba(244, 63, 94, 0.12);
+            border: 1px solid rgba(244, 63, 94, 0.05);
+        }
+
         .arrow { display: none; }
 
         /* 체크리스트 */
@@ -503,13 +525,15 @@
             </div>
             
             <div class="system-flow">
-                <div class="flow-box">
-                    ✏ <strong>1단계: 강의실</strong><br>
+                <div class="flow-box step-1">
+                    <span class="gray-icon">📚</span> <strong>1단계: 강의실</strong><br>
                     <span style="font-size:0.95rem; color:var(--primary-soft);">한양대 전공자의<br>귀에 쏙쏙 박히는 설명</span>
                 </div>
-                <div class="arrow">➡</div>
-                <div class="flow-box">
-                    ✏ <strong>2단계: 클리닉룸</strong><br>
+                
+                <div class="arrow"><span class="gray-icon">➡</span></div>
+                
+                <div class="flow-box step-2">
+                    <span class="gray-icon">✏</span> <strong>2단계: 클리닉룸</strong><br>
                     <span style="font-size:0.95rem; color:var(--primary-soft);">당일 복습 테스트<br>& 1:1 밀착 관리</span>
                 </div>
             </div>
@@ -594,7 +618,7 @@
             </table>
             
             <p style="margin-top: 24px; color: var(--primary-soft); font-size:0.95rem; text-align:center;">
-                📢 <strong>화 / 목 반</strong>은 아직 구상 중에 있습니다. 문의 주시면 상담 도와드리도록 하겠습니다!
+                <span class="gray-icon">📢</span> <strong>화 / 목 반</strong>은 아직 구상 중에 있습니다. 문의 주시면 상담 도와드리도록 하겠습니다!
             </p>
 
             <div style="margin-top: 24px; background: #fff; padding: 24px; border-radius: var(--radius-md); border: 1px solid rgba(0,0,0,0.05); box-shadow: var(--shadow-sm);">
