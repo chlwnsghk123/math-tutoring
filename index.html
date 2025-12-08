@@ -8,461 +8,428 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
     <style>
-        /* --- [Modern Reset & Variables] --- */
+        /* --- [Design Tokens: Quiet Luxury] --- */
         :root {
-            --primary: #0F172A;       /* 아주 깊은 네이비 */
-            --primary-light: #334155; /* 부드러운 네이비 그레이 */
-            --accent: #FF4757;        /* 세련된 코랄 레드 */
-            --bg-body: #F1F3F5;       /* 웜 그레이 배경 */
-            --bg-card: #FFFFFF;
-            --text-main: #191F28;
-            --text-sub: #6B7684;
-            --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.04);
-            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.08);
-            --radius-box: 24px;       
-            --radius-btn: 16px;
+            /* Palette: 차분하고 묵직한 네이비와 웜 그레이 */
+            --primary: #1a202c;        /* 잉크 블랙에 가까운 네이비 */
+            --primary-soft: #4a5568;   /* 세련된 다크 그레이 */
+            --accent: #f43f5e;         /* 채도를 살짝 낮춘 고급스러운 로즈 코랄 */
+            --bg-body: #f8fafc;        /* 쿨톤의 매우 밝은 그레이 */
+            --surface: #ffffff;        /* 카드 배경 */
+            
+            /* Shadows: 더 넓게 퍼지는 부드러운 그림자 (계층 구조 표현) */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 12px 24px -6px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 40px -4px rgba(0, 0, 0, 0.08);
+            
+            /* Border Radius */
+            --radius-lg: 28px;
+            --radius-md: 20px;
+            --radius-sm: 12px;
         }
 
+        /* --- [Reset & Base] --- */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-body);
-            color: var(--text-main);
+            background: linear-gradient(180deg, #F1F5F9 0%, #FFFFFF 100%); /* 배경에 은은한 빛 */
+            color: var(--primary);
             line-height: 1.65;
             word-break: keep-all;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 모바일 레이아웃 컨테이너 */
+        /* 모바일 컨테이너: 앱 같은 느낌 */
         .container {
-            max-width: 500px;
+            max-width: 480px; /* 아이폰 Pro Max 너비 기준 최적화 */
             margin: 0 auto;
-            background: var(--bg-card);
+            background: rgba(255, 255, 255, 0.6); /* 반투명 배경 */
+            backdrop-filter: blur(20px);          /* 배경 블러 처리 */
             min-height: 100vh;
-            box-shadow: 0 0 50px rgba(0,0,0,0.05);
-            padding-bottom: 80px;
-            overflow: hidden;
+            box-shadow: 0 0 60px rgba(0,0,0,0.05); /* 컨테이너 주변 은은한 그림자 */
+            border-left: 1px solid rgba(255,255,255,0.4);
+            border-right: 1px solid rgba(255,255,255,0.4);
+            padding-bottom: 100px;
         }
 
-        /* --- [Header Design] --- */
+        /* --- [Typography Utility] --- */
+        h1, h2, h3 { letter-spacing: -0.03em; margin: 0; }
+        p { letter-spacing: -0.01em; color: var(--primary-soft); }
+        strong { color: var(--primary); font-weight: 700; }
+
+        /* --- [Header] --- */
         header {
-            background: var(--bg-card);
-            padding: 60px 24px 40px;
-            text-align: left;
+            padding: 70px 24px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* 헤더 배경 장식 (추상적인 원) */
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(244, 63, 94, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
         }
 
         .badge {
             display: inline-flex;
-            align-items: center;
             padding: 6px 14px;
-            background-color: rgba(15, 23, 42, 0.05);
-            color: var(--primary);
-            font-size: 0.8rem;
-            font-weight: 700;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
             border-radius: 100px;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
         }
 
         header h1 {
-            margin: 0;
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             line-height: 1.25;
             font-weight: 800;
-            letter-spacing: -0.04em;
-            color: var(--primary);
-            background: linear-gradient(135deg, #0F172A 0%, #334155 100%);
+            background: linear-gradient(135deg, #1a202c 0%, #4a5568 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: inline-block;
         }
 
         header p {
             margin-top: 16px;
-            font-size: 1.1rem;
-            color: var(--text-sub);
+            font-size: 1.05rem;
             font-weight: 500;
+            opacity: 0.8;
         }
 
-        /* --- [Section Styling] --- */
+        /* --- [Section Layout] --- */
         section {
             padding: 40px 24px;
-            border-bottom: none;
             position: relative;
         }
         
-        section::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 4px;
-            background: #F1F3F5;
-            margin: 40px auto 0;
-            border-radius: 2px;
-        }
-        section:last-child::after { display: none; }
-
+        /* 섹션 제목 디자인 */
         h2 {
-            font-size: 1.4rem;
-            color: var(--primary);
-            margin: 0 0 24px 0;
-            padding: 0;
-            border: none;
-            font-weight: 800;
-            letter-spacing: -0.03em;
+            font-size: 1.35rem;
+            margin-bottom: 28px;
             display: flex;
             align-items: center;
+            color: var(--primary);
+        }
+        /* 제목 옆 작은 포인트 점 */
+        h2::before {
+            content: '';
+            display: block;
+            width: 6px; height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-right: 12px;
         }
 
-        /* --- [Feature Cards & Components] --- */
+        /* --- [Cards & Boxes] --- */
         
-        /* 1. Quote Box */
+        /* 1. Quote Box: 심플한 타이포그래피 중심 */
         .quote-box {
-            background: #F8F9FA;
-            border: none;
-            border-radius: var(--radius-box);
-            padding: 30px;
-            font-style: normal;
-            font-size: 1.05rem;
-            color: var(--text-main);
-            text-align: center;
-            font-weight: 500;
-            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
+            position: relative;
+            padding: 10px 10px 10px 20px;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--primary);
+            font-weight: 600;
+            border-left: 3px solid var(--accent);
+            background: transparent; /* 배경색 제거 */
+            margin-bottom: 30px;
         }
         .quote-box strong {
             color: var(--accent);
             font-weight: 800;
-            position: relative;
-            z-index: 1;
         }
-        .quote-box strong::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: -2px;
-            width: 104%;
-            height: 8px;
-            background: rgba(255, 107, 107, 0.2);
-            z-index: -1;
-            transform: skewX(-10deg);
-        }
-
-        /* 2. System Flow */
+        
+        /* 2. System Flow: 수직 타임라인 스타일 */
         .system-flow {
-            background: transparent;
-            padding: 0;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
+            position: relative;
+        }
+        /* 타임라인 연결선 */
+        .system-flow::before {
+            content: '';
+            position: absolute;
+            left: 24px; top: 20px; bottom: 20px;
+            width: 2px;
+            background: #e2e8f0;
+            z-index: 0;
         }
         
         .flow-box {
-            background: #fff;
-            border: 1px solid rgba(0,0,0,0.06);
-            border-radius: var(--radius-btn);
+            background: var(--surface);
             padding: 24px;
-            color: var(--primary);
-            box-shadow: var(--shadow-soft);
-            text-align: left;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(255,255,255,1); /* 하이라이트 보더 */
             position: relative;
-            overflow: hidden;
-            transition: transform 0.2s ease;
+            z-index: 1;
+            margin-left: 0;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .flow-box:hover { transform: translateY(-3px); }
-        .flow-box strong { font-size: 1.1rem; display: block; margin-bottom: 4px; }
-        
-        .arrow { display: none; } 
-        
-        .flow-box::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 6px;
-            background: var(--primary);
-        }
-        .flow-box:last-child::before { background: var(--accent); }
+        .flow-box:active { transform: scale(0.98); }
+        .arrow { display: none; }
 
-        ul { padding-left: 0; list-style: none; margin-top: 30px; }
+        /* 체크리스트 */
+        ul { padding: 0; list-style: none; margin-top: 30px; }
         li {
-            background: #fff;
-            padding: 16px;
-            margin-bottom: 12px;
-            border-radius: 16px;
-            font-size: 0.95rem;
-            display: flex !important;
+            display: flex;
             align-items: flex-start;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            margin-bottom: 16px;
+            padding: 16px;
+            background: rgba(255,255,255,0.5);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0,0,0,0.03);
         }
-        li span[style*="color: var(--primary-color)"] {
-            color: var(--accent) !important;
-            font-weight: bold;
-            background: rgba(255,71,87,0.1);
-            width: 24px;
-            height: 24px;
+        li span[style*="✔"] {
             display: flex;
             align-items: center;
             justify-content: center;
+            background: var(--primary);
+            color: white !important;
+            width: 20px; height: 20px;
             border-radius: 50%;
+            font-size: 0.7rem;
             margin-right: 12px !important;
-            font-size: 0.8rem;
+            margin-top: 3px;
+            flex-shrink: 0;
         }
-        span[style*="background: #e3f2fd"] {
-            background: #0F172A !important;
-            color: #fff !important;
-            font-weight: 700 !important;
-            padding: 4px 8px !important;
-            border-radius: 6px !important;
-            font-size: 0.75rem !important;
-            letter-spacing: 0.05em;
+        
+        /* 연세대 뱃지 수정 */
+        span[style*="#e3f2fd"] {
+            background: #fff !important;
+            border: 1px solid #1565c0;
+            color: #1565c0 !important;
+            font-size: 0.7rem !important;
+            padding: 2px 8px !important;
+            border-radius: 100px !important;
         }
 
-        /* 3. Info Grid */
+        /* 3. Info Grid: 미니멀 카드 */
         .info-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 16px;
         }
         .info-box {
-            background: #fff;
-            padding: 24px;
-            border-radius: var(--radius-box);
-            border: 1px solid #eee;
-            box-shadow: var(--shadow-soft);
+            background: var(--surface);
+            padding: 28px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
         }
-        .info-box strong {
-            color: var(--primary);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-        .info-box[style*="margin-top: 20px"] {
-            background: var(--primary);
-            color: white;
-            border: none;
-        }
-        .info-box[style*="margin-top: 20px"] strong { color: white; }
-        .info-box[style*="margin-top: 20px"] div[style*="background: #f9f9f9"] {
-            background: rgba(255,255,255,0.1) !important;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white !important;
-        }
-        .info-box[style*="margin-top: 20px"] p, 
-        .info-box[style*="margin-top: 20px"] strong[style*="color: #333"] {
-            color: rgba(255,255,255,0.9) !important;
-        }
+        .info-box strong { font-size: 1.1rem; margin-bottom: 8px; display: block; }
 
-        /* 4. Table Cards */
-        table { display: block; width: 100%; border: none; }
+        /* 4. Table: 카드형 리스트 */
+        table { display: block; border: none; }
         thead { display: none; }
-        tbody { display: flex; flex-direction: column; gap: 12px; }
+        tbody { display: flex; flex-direction: column; gap: 16px; }
         tr {
             display: flex;
             flex-direction: column;
-            background: #fff;
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid #eee;
-            box-shadow: var(--shadow-soft);
-            position: relative;
-        }
-        td {
-            border: none;
-            padding: 4px 0;
-            text-align: left;
-            display: block;
-        }
-        td:nth-child(1) {
-            font-size: 1.2rem;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        td:nth-child(2) {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-        td:nth-child(3) {
-            font-size: 0.9rem;
-            color: var(--text-sub);
-            margin-top: 4px;
-        }
-        .closed {
-            background: #F8F9FA;
-            border: none;
-            opacity: 0.6;
-            box-shadow: none;
-        }
-        .closed td:first-child::after {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            margin: 0;
-            background: #E9ECEF;
-            color: #ADB5BD;
-            border: none;
-            padding: 4px 10px;
-            font-size: 0.8rem;
-        }
-
-        /* 5. Price & Trial */
-        .price-box {
-            border: none;
-            background: #fff;
-            box-shadow: var(--shadow-hover);
-            border-radius: 30px;
-            padding: 40px 24px;
-            margin-top: 20px;
+            background: var(--surface);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.02);
             position: relative;
             overflow: hidden;
         }
-        .price-box::before {
+        /* 왼쪽 컬러 바 포인트 */
+        tr::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 6px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            left: 0; top: 0; bottom: 0;
+            width: 6px;
+            background: var(--primary);
         }
-        .price-main { font-size: 2.8rem; letter-spacing: -0.05em; color: var(--primary); line-height: 1; margin-bottom: 10px; }
-        .price-desc { font-size: 1rem; color: var(--text-sub); }
         
-        .trial-box {
-            background: #FFF0F0;
-            border: none;
-            color: var(--accent);
-            border-radius: 20px;
-            font-size: 0.95rem;
-            line-height: 1.6;
+        td { border: none; padding: 2px 0; display: block; }
+        td:nth-child(1) { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; color: var(--primary); }
+        td:nth-child(2) { font-size: 0.95rem; font-weight: 600; color: var(--primary-soft); }
+        td:nth-child(3) { font-size: 0.9rem; color: #888; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f1f5f9; }
+
+        .closed { opacity: 0.5; background: #f8fafc; box-shadow: none; border: 1px solid #e2e8f0; }
+        .closed::before { background: #cbd5e1; }
+        .closed td:first-child::after {
+            position: absolute; top: 24px; right: 24px;
+            background: #e2e8f0; color: #64748b;
+            padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; border: none;
         }
 
-        /* 6. Video Cards (New Play Button Style) */
-        .video-container { gap: 24px; }
-        
-        .video-item {
-            border-radius: 24px;
-            background: #fff;
-            box-shadow: var(--shadow-soft);
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        /* 5. Price Box: 프리미엄 카드 */
+        .price-box {
+            background: var(--surface);
+            border-radius: 32px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0,0,0,0.03);
+            margin-top: 30px;
+            position: relative;
             overflow: hidden;
         }
-        .video-item a { 
-            text-decoration: none; 
-            display: block; 
+        /* 상단 은은한 그라데이션 오버레이 */
+        .price-box::after {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 200px;
+            background: linear-gradient(180deg, rgba(244, 63, 94, 0.03) 0%, transparent 100%);
+            pointer-events: none;
         }
         
-        /* 썸네일과 버튼을 감싸는 프레임 */
+        .price-main { font-size: 3rem; font-weight: 800; color: var(--primary); letter-spacing: -0.05em; line-height: 1; margin-bottom: 8px; }
+        .price-desc { font-size: 1rem; color: #94a3b8; font-weight: 500; }
+
+        .trial-box {
+            margin-top: 24px;
+            background: #fff;
+            border: 1px solid var(--accent); /* 얇은 라인으로 깔끔하게 */
+            color: var(--primary);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* 6. Video: Gallery Style */
+        .video-container { display: flex; flex-direction: column; gap: 30px; }
+        
+        .video-item {
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .video-item a { text-decoration: none; display: block; }
+        
+        /* 썸네일 영역 */
         .thumb-frame {
-            position: relative; /* 재생 버튼 위치 기준점 */
+            position: relative;
             width: 100%;
             aspect-ratio: 16 / 9;
             overflow: hidden;
         }
-        
         .video-thumb {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.9); /* 이미지를 살짝 어둡게 해서 버튼 강조 */
-            transition: transform 0.4s ease;
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease;
+            filter: brightness(0.95);
         }
-
-        /* [NEW] 재생 버튼 스타일 (CSS로만 구현) */
+        
+        /* [High-End Play Button] */
         .play-button {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 0, 0, 0.5); /* 반투명 검은 배경 */
-            backdrop-filter: blur(4px); /* 흐림 효과 */
+            width: 64px; height: 64px;
+            
+            /* Glassmorphism Core */
+            background: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.4); /* 얇은 유리 테두리 */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            
+            display: flex; align-items: center; justify-content: center;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
             z-index: 10;
         }
-
-        /* 재생 삼각형 (순수 CSS) */
+        /* 아이콘 */
         .play-button::after {
             content: '';
-            display: block;
-            width: 0; 
-            height: 0; 
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-left: 16px solid white;
-            margin-left: 4px; /* 시각적 중앙 정렬 보정 */
+            width: 0; height: 0;
+            border-top: 11px solid transparent;
+            border-bottom: 11px solid transparent;
+            border-left: 18px solid #fff; /* 순백색 아이콘 */
+            margin-left: 5px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
         /* 호버 효과 */
-        .video-item:hover { transform: scale(1.02); box-shadow: var(--shadow-hover); }
-        .video-item:hover .video-thumb { transform: scale(1.05); } /* 이미지 확대 */
+        .video-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .video-item:hover .video-thumb { transform: scale(1.05); }
         .video-item:hover .play-button {
-            background: var(--accent); /* 버튼이 코랄색으로 변함 */
-            transform: translate(-50%, -50%) scale(1.1); /* 버튼 약간 커짐 */
-            border-color: var(--accent);
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #fff;
         }
 
-        .video-content { padding: 24px; }
-        .video-title { font-size: 1.15rem; margin-bottom: 8px; color: var(--text-main); line-height: 1.4; font-weight: 700; }
-        .video-desc { font-size: 0.9rem; color: var(--text-sub); }
+        .video-content { padding: 28px; }
+        .video-title { font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; line-height: 1.3; }
+        .video-desc { font-size: 0.95rem; color: var(--primary-soft); }
 
-        /* 7. CTA Button */
+        /* 7. CTA & Footer */
         .cta-section {
-            background: transparent;
-            padding: 60px 24px 100px;
+            padding: 80px 24px 60px;
+            text-align: center;
         }
         .cta-btn {
-            display: block;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
             background: var(--primary);
             color: white;
-            padding: 22px 0;
+            padding: 24px 0;
             border-radius: 100px;
-            font-size: 1.1rem;
-            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.25);
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 20px 40px rgba(26, 32, 44, 0.3); /* 강한 그림자로 띄움 */
             transition: transform 0.2s;
             position: relative;
             overflow: hidden;
-            text-decoration: none;
-            font-weight: bold;
         }
-        .cta-btn:active { transform: scale(0.98); }
-        .cta-btn::after {
+        /* 버튼 내부 광택 효과 */
+        .cta-btn::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.1), transparent);
-            pointer-events: none;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 100%);
         }
-
+        .cta-btn:active { transform: scale(0.96); box-shadow: 0 10px 20px rgba(26, 32, 44, 0.2); }
+        
+        /* 카카오톡 링크 버튼화 */
         .cta-section a[href*="kakao"] {
-            background: #FAE100;
-            color: #371D1E !important;
-            padding: 2px 6px;
-            border-radius: 4px;
+            display: inline-block;
+            margin-top: 4px;
+            background: #FEE500;
+            color: #191919 !important;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
             text-decoration: none !important;
+            vertical-align: middle;
         }
 
-        /* --- Animations --- */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- Animation --- */
+        @keyframes fadeInMove {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-        section { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
-        section:nth-child(1) { animation-delay: 0.1s; }
-        section:nth-child(2) { animation-delay: 0.2s; }
-        section:nth-child(3) { animation-delay: 0.3s; }
-        section:nth-child(4) { animation-delay: 0.4s; }
-        section:nth-child(5) { animation-delay: 0.5s; }
-        section:nth-child(6) { animation-delay: 0.6s; }
-
+        section { animation: fadeInMove 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
+        /* 순차적 등장 */
+        section:nth-child(1) { animation-delay: 0.0s; } /* 헤더 */
+        section:nth-child(2) { animation-delay: 0.1s; }
+        section:nth-child(3) { animation-delay: 0.2s; }
+        section:nth-child(4) { animation-delay: 0.3s; }
+        section:nth-child(5) { animation-delay: 0.4s; }
+        section:nth-child(6) { animation-delay: 0.5s; }
+        section:nth-child(7) { animation-delay: 0.6s; }
+        
     </style>
 </head>
 <body>
@@ -479,61 +446,54 @@
             <div class="quote-box">
                 "고등 수학의 진짜 승부처는 2학년 1학기, <strong>수학1</strong> 부터입니다."
             </div>
-            <p style="color:var(--text-sub); font-size: 1.05rem;">
+            <p>
                 지수로그, 삼각함수, 수열... 중학교나 고1 수학과는 차원이 다른 논리력이 필요합니다.
                 이 겨울방학을 놓치면 학기 중에는 절대 따라잡을 수 없습니다. 그렇기에 지금이 가장 중요합니다.
             </p>
-            <p style="color:var(--text-sub); font-size: 1.05rem;">
+            <br>
+            <p>
                 그냥 시간 때우는 수업이 아니라, <strong>정말 성적을 올릴 의지가 있는 학생(딱 12명)</strong>과 함께 '소수정예 드림팀'을 만들어보려 합니다.
             </p>
 
-            <p style="font-size: 0.85rem; color: #999; margin-top: 20px; line-height: 1.5; background:#f8f9fa; padding:15px; border-radius:12px;">
+            <div style="margin-top: 30px; padding: 16px; background: rgba(0,0,0,0.03); border-radius: var(--radius-sm); font-size: 0.85rem; color: #718096;">
                 * 2022 개정 교육과정으로 기존 <strong>'수학Ⅰ'</strong>이 <strong>'대수'</strong>로 명칭이 변경되었습니다. 교육 과정 내용은 동일합니다.
-            </p>
+            </div>
         </section>
 
         <section>
             <h2>02. 빈틈없는 "이중 관리" 시스템</h2>
 
-            <div style="background: #fff8e1; border: none; padding: 24px; border-radius: 20px; text-align: center; margin-bottom: 25px; color: #5D4037; box-shadow: var(--shadow-soft);">
+            <div style="background: #FFFBF0; border: 1px solid rgba(0,0,0,0.05); padding: 24px; border-radius: var(--radius-md); text-align: center; margin-bottom: 30px; color: #744210;">
                 <div style="margin-bottom: 12px; font-size: 1.1rem; font-weight:700;">
                     📍 <strong>장소: 범계역 인근 스터디룸<br>
                            (도보 2분거리)</strong>
                 </div>
-                <div style="display: inline-block; background: #FFAB91; color: white; border: none; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;">
+                <div style="display: inline-block; background: #ed8936; color: white; padding: 4px 12px; border-radius: 100px; font-weight: 700; font-size: 0.8rem;">
                     * 비용 전액 강사 부담
                 </div>
             </div>
             
             <div class="system-flow">
                 <div class="flow-box">
-                    <strong>1단계: 강의실</strong><br>
-                    <span style="font-size:0.95rem; color:var(--text-sub);">한양대 전공자의<br>귀에 쏙쏙 박히는 설명</span>
+                    ✏ <strong>1단계: 강의실</strong><br>
+                    <span style="font-size:0.95rem; color:var(--primary-soft);">한양대 전공자의<br>귀에 쏙쏙 박히는 설명</span>
                 </div>
                 <div class="arrow">➡</div>
                 <div class="flow-box">
-                    <strong>2단계: 클리닉룸</strong><br>
-                    <span style="font-size:0.95rem; color:var(--text-sub);">당일 복습 테스트<br>& 1:1 밀착 관리</span>
+                    ✏ <strong>2단계: 클리닉룸</strong><br>
+                    <span style="font-size:0.95rem; color:var(--primary-soft);">당일 복습 테스트<br>& 1:1 밀착 관리</span>
                 </div>
             </div>
 
-            <ul style="margin-top: 25px; color: #555; list-style: none; padding-left: 0;">
-                <li style="margin-bottom: 15px; display: flex; align-items: start;">
+            <ul style="margin-top: 40px;">
+                <li>
                     <span style="color: var(--primary-color); margin-right: 8px; margin-top: 3px;">✔</span>
                     <span>수업 후 바로 옆방으로 이동하여 <strong>당일 배운 내용 테스트</strong> 진행</span>
                 </li>
                 
-                <li style="display: flex; align-items: start;">
+                <li>
                     <span style="color: var(--primary-color); margin-right: 8px; margin-top: 3px;">✔</span>
-                    <div style="display:flex; flex-direction:column; align-items:flex-start; gap:6px;">
-                        <span style="display: inline-block; background: #e3f2fd; color: #1565c0; padding: 4px 5px; border-radius: 6px; font-size: 0.8rem; font-weight: bold;">
-                             연세대학교 재학
-                        </span>
-
-                        <span>
-                            <strong>전담 조교 선생님</strong>의 꼼꼼한 숙제 검사 및 질의응답
-                        </span>
-                        
+                        <span>연세대학교 재학 중인 <strong>전담 조교 선생님</strong>의 꼼꼼한 숙제 검사 및 질의응답</span>
                     </div>
                 </li>
             </ul>
@@ -544,28 +504,28 @@
             <div class="info-grid">
                 <div class="info-box">
                     <strong>🎯 대상</strong>
-                    <div style="font-size:0.95rem; color:var(--text-sub);">성적을 정말 올리고 싶은 예비 고2 학생<br>
+                    <div style="font-size:0.95rem; color:var(--primary-soft);">성적을 정말 올리고 싶은 예비 고2 학생<br>
                     (성적 무관, 의지 중요)</div>
                 </div>
                 <div class="info-box">
                     <strong>🏆 목표</strong>
-                    <div style="font-size:0.95rem; color:var(--text-sub);">겨울방학 동안<br>
-                    <span style="color:var(--text-main); font-weight:700;">수학1 개념 마스터 + 주요 기출 정복</span></div>
+                    <div style="font-size:0.95rem; color:var(--primary-soft);">겨울방학 동안<br>
+                    <span style="color:var(--primary); font-weight:700;">수학1 개념 마스터 + 주요 기출 정복</span></div>
                 </div>
             </div>
             <div class="info-box" style="margin-top: 20px;">
                 <strong>📅 기간 구성 (6주 완성)</strong>
                 
-                <div style="margin-top: 15px; background: #f9f9f9; padding: 15px; border-radius: 8px;">
-                    <p style="margin: 5; font-size: 0.95rem; color: #555; line-height: 1.5;">
+                <div style="margin-top: 20px; background: #f9f9f9; padding: 20px; border-radius: 12px;">
+                    <p style="margin: 0 0 4px 0; font-size: 0.95rem;">
                         <strong>수1 집중 올인원 과정</strong>
                     </p>
 
-                    <div style="margin-top: 10px; margin-bottom: 8px;">
-                        <strong style="font-size: 1.3rem; color: #333;">1월 5일 ~ 2월 13일 (6주)</strong>
+                    <div style="margin-bottom: 12px;">
+                        <strong style="font-size: 1.4rem; color: #333;">1월 5일 ~ 2월 13일 (6주)</strong>
                     </div>
                     
-                    <p style="margin: 0; font-size: 0.95rem; color: #555; line-height: 1.5;">
+                    <p style="margin: 0; font-size: 0.95rem; line-height: 1.5;">
                         기초 개념부터 고난도 심화까지,<br> 6주간 완벽하게 정리합니다.
                     </p>
                 </div>
@@ -574,14 +534,13 @@
 
         <section>
             <h2>04. 수업 시간표</h2>
-            <p style="color:var(--text-sub); margin-bottom:20px;"><strong>수업:</strong> 월 / 수 / 금 (수업 + 필수 클리닉) +  토 (보충 클리닉)      <span style="font-size: 0.85em; color: #888;">토 (보충 클리닉)은 선택사항</span></p>
+            <p style="margin-bottom:24px;">
+                <strong>수업:</strong> 월 / 수 / 금 (수업 + 필수 클리닉) +  토 (보충 클리닉)<br>
+                <span style="font-size: 0.85em; opacity:0.6;">토 (보충 클리닉)은 선택사항</span>
+            </p>
             <table>
                 <thead>
-                    <tr>
-                        <th>구분</th>
-                        <th>시간</th>
-                        <th>내용</th>
-                    </tr>
+                    <tr><th>구분</th><th>시간</th><th>내용</th></tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -604,15 +563,17 @@
                 </tbody>
             </table>
             
-            <p style="margin-top: 20px; color: var(--text-sub); font-weight: 500; font-size:0.95rem; text-align:center;">
+            <p style="margin-top: 24px; color: var(--primary-soft); font-size:0.95rem; text-align:center;">
                 📢 <strong>화 / 목 반</strong>은 아직 구상 중에 있습니다. 문의 주시면 상담 도와드리도록 하겠습니다!
             </p>
 
-            <div style="margin-top: 20px; background: #FFF8E1; color:#5D4037; padding: 20px; border-radius: 16px; font-size: 0.95rem; border:1px solid #FFE0B2;">
-                <strong style="font-size:1.1rem; display:block; margin-bottom:8px;">⭐ 토요 주말 클리닉</strong>
+            <div style="margin-top: 24px; background: #fff; padding: 24px; border-radius: var(--radius-md); border: 1px solid rgba(0,0,0,0.05); box-shadow: var(--shadow-sm);">
+                <strong style="font-size:1.1rem; display:block; margin-bottom:12px; color:var(--primary);">⭐ 토요 주말 클리닉</strong>
+                <span style="color:var(--primary-soft); font-size:0.95rem; line-height:1.6;">
                 * 오전반 (09~12시) / 오후반 (12~15시)<br>
                 * 타임당 2만원 + 공간 대여료 별도<br>
-                로 진행할 예정입니다!
+                로 진행할 예정입니다.
+                </span>
             </div>
         </section>
 
@@ -620,23 +581,23 @@
             <h2>05. 교재 및 커리큘럼</h2>
             <ul>
                 <li style="display:block;">
-                    <div style="font-size:0.85rem; color:var(--text-sub); margin-bottom:4px;">CONCEPT</div>
-                    <div style="font-size:1.1rem;"><strong>개념:</strong> 자체 제작 교재 + 마플교과서</div>
+                    <div style="font-size:0.8rem; color:#aaa; margin-bottom:6px; letter-spacing:0.05em; font-weight:700;">CONCEPT</div>
+                    <div style="font-size:1.1rem;"><strong>자체 제작 교재 + 마플교과서</strong></div>
                 </li>
                 <li style="display:block;">
-                    <div style="font-size:0.85rem; color:var(--text-sub); margin-bottom:4px;">PROBLEM</div>
-                    <div style="font-size:1.1rem;"><strong>문제:</strong> 기출 + 실모 우수 문항 + 내신 족보 (고난도 킬러 공략법 적용)</div>
+                    <div style="font-size:0.8rem; color:#aaa; margin-bottom:6px; letter-spacing:0.05em; font-weight:700;">PROBLEM</div>
+                    <div style="font-size:1.1rem;"><strong>기출 + 실모 우수 문항 + 내신 족보 (고난도 킬러 공략법 적용)</strong></div>
                 </li>
                 <li style="display:block;">
-                    <div style="font-size:0.85rem; color:var(--text-sub); margin-bottom:4px;">HOMEWORK</div>
-                    <div style="font-size:1.1rem;"><strong>과제:</strong> 시중 교재 엄선 문항 + 매주 <strong>개별 오답 맞춤 프린트</strong> 제공</div>
+                    <div style="font-size:0.8rem; color:#aaa; margin-bottom:6px; letter-spacing:0.05em; font-weight:700;">HOMEWORK</div>
+                    <div style="font-size:1.1rem;"><strong>시중 교재 엄선 문항 + 매주 개별 오답 맞춤 프린트 제공</strong></div>
                 </li>
             </ul>
         </section>
         
         <section>
             <h2>06. 선생님 강의력 확인하기</h2>
-            <p style="margin-bottom: 24px; color: var(--text-sub); text-align: left;">한양대 수학과 전공자의 깊이 있는 해설을 직접 확인해보세요.</p>
+            <p style="margin-bottom: 30px;">한양대 수학과 전공자의 깊이 있는 해설을 직접 확인해보세요.</p>
             
             <div class="video-container">
 
@@ -674,42 +635,43 @@
         <section>
             <h2>07. 시범 수업 및 수강료 안내</h2>
             
-            <p style="text-align: center; margin-top: 30px; margin-bottom: 10px; font-weight:700; font-size:1.1rem; color:var(--primary);">최고의 가성비로 프리미엄 관리를 경험하세요.</p>
+            <p style="text-align: center; margin-top: 40px; font-weight:700; font-size:1.1rem; color:var(--primary);">최고의 가성비로 프리미엄 관리를 경험하세요.</p>
+            
             <div class="price-box">
                 <div class="price-main">주 200,000원</div>
                 <div class="price-desc">(월/수/금 반 기준, 4주 기준 80만원)</div>
                 
-                <div style="margin-top:24px; padding-top: 24px; border-top: 1px dashed #eee;">
-                    <strong style="color: var(--accent); font-size: 1.1rem; display:block; margin-bottom:10px;">
-                        ✨ 수업에 자신 있기에 가능합니다!
+                <div style="margin-top:30px; padding-top: 30px; border-top: 1px solid rgba(0,0,0,0.05);">
+                    <strong style="color: var(--accent); font-size: 1.15rem; display:block; margin-bottom:12px;">
+                        ✨ 수업에 자신 있기에 가능합니다.
                     </strong>
-                    <p style="margin: 0; font-size: 1rem; color: var(--text-main); line-height: 1.5;">
+                    <p style="margin: 0; font-size: 1.05rem; color: var(--primary); font-weight:500;">
                         부담 없는 <strong>'주 단위 결제'</strong> 시스템<br>
                     </p>
                 </div>
             </div>
 
             <div class="trial-box">
-                <div style="background:rgba(255, 107, 107, 0.1); display:inline-block; padding:8px 16px; border-radius:100px; font-weight:800; margin-bottom:16px;">📢 [30분 시범 수업 신청 필수]</div>
+                <div style="background:var(--accent); color:white; display:inline-block; padding:6px 16px; border-radius:100px; font-weight:700; font-size:0.85rem; margin-bottom:20px;">📢 30분 시범 수업 신청 필수</div>
                 <br>
                 저도 학생과 호흡이 잘 맞는지 확인이 필요하고,<br>
                 학생도 제 수업이 맞는지 들어봐야 합니다.<br><br>
                 <strong>시범 수업은 30분간 무료로 진행됩니다.</strong><br>
-                <span style="opacity:0.7; font-size:0.85rem;">(단, 인원 제한으로 조기 마감될 수 있습니다.)</span>
+                <span style="opacity:0.6; font-size:0.9rem;">(단, 인원 제한으로 조기 마감될 수 있습니다.)</span>
             </div>
             
         </section>
 
         <div class="cta-section">
-            <h3 style="font-size:1.6rem; color:var(--primary); margin-bottom:10px;">이번 겨울방학,<br>수학을 확실하게 잡으세요.</h3>
-            <p style="color:var(--text-sub); margin-bottom:40px;">한양대 수학과 선생님과 함께하는<br>소수정예 드림팀</p>
+            <h3 style="font-size:1.8rem; line-height:1.3; margin-bottom:16px;">이번 겨울방학,<br>수학을 확실하게 잡으세요.</h3>
+            <p style="margin-bottom:50px;">한양대 수학과 선생님과 함께하는<br>소수정예 드림팀</p>
             
             <a href="https://docs.google.com/forms/d/e/1FAIpQLScShjA2Gks6HSppfEvokio7PmMFRhFidCdoZgEYfFukwQ7J8g/viewform?usp=dialog" class="cta-btn" target="_blank">시범 수업 및 상담 신청하기</a>
             
-            <div style="margin-top: 40px; color: #999; font-size: 0.95rem;">
-                문의 전화 : <strong style="color:var(--text-main);">010-6558-8544</strong><br><br>
-                카카오톡 : <a href="http://pf.kakao.com/_BxopYn/chat" target="_blank" style="text-decoration: underline; color: var(--primary-color); font-weight: bold;">이민철수학팀</a><br><br>
-                문의 전화2 : <strong style="color:var(--text-main);">010-9186-3835</strong><br>
+            <div style="margin-top: 60px; color: #a0aec0; font-size: 0.95rem;">
+                문의 전화 : <strong style="color:var(--primary-soft);">010-6558-8544</strong><br><br>
+                카카오톡 : <a href="http://pf.kakao.com/_BxopYn/chat" target="_blank">이민철수학팀</a><br><br>
+                문의 전화2 : <strong style="color:var(--primary-soft);">010-9186-3835</strong><br>
             </div>
         </div>
     </div>
