@@ -258,12 +258,41 @@
         td:nth-child(2) { font-size: 0.95rem; font-weight: 600; color: var(--primary-soft); }
         td:nth-child(3) { font-size: 0.9rem; color: #888; margin-top: 8px; padding-top: 8px; border-top: 1px solid #f1f5f9; }
 
-        .closed { opacity: 0.5; background: #f8fafc; box-shadow: none; border: 1px solid #e2e8f0; }
-        .closed::before { background: #cbd5e1; }
+        /* --- [마감 상태 디자인 수정됨] --- */
+        .closed {
+            background: #F1F3F5;   /* 전체 배경 회색 */
+            box-shadow: none;      /* 그림자 제거 */
+            border: 1px solid #E9ECEF;
+            pointer-events: none;  /* 클릭/선택 불가 효과 */
+        }
+        .closed::before { 
+            background: #CED4DA;   /* 왼쪽 컬러바도 회색으로 변경 */ 
+        }
+        
+        /* 반 이름(A반, B반 등)에 취소선 긋기 */
+        .closed td:first-child strong {
+            text-decoration: line-through;
+            color: #ADB5BD;
+        }
+
+        /* 시간 및 내용 텍스트 흐리게 처리 */
+        .closed td { color: #ADB5BD !important; }
+
+        /* 🚫 마감 뱃지 자동 생성 (핵심) */
         .closed td:first-child::after {
-            position: absolute; top: 24px; right: 24px;
-            background: #e2e8f0; color: #64748b;
-            padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; border: none;
+            content: '🚫 마감';       /* 뱃지 내용 */
+            display: inline-block;
+            margin-left: 8px;
+            background: #FFF5F5;     /* 연한 붉은 배경 */
+            color: #E03131;          /* 진한 붉은 글씨 */
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid #FFC9C9;
+            font-weight: 800;
+            text-decoration: none !important; /* 취소선 상속 방지 */
+            vertical-align: middle;
+            transform: translateY(-2px);
         }
 
         /* 5. Price Box: 프리미엄 카드 */
@@ -551,11 +580,11 @@
                     
                     <tr>
                         <td><strong>B반</strong></td>
-                            <td>오후 3:30 ~ 오후 7:00</td>
-                            <td>2시간 몰입 강의 + 1.5시간 복습T 및 클리닉</td>
+                        <td>오후 3:30 ~ 오후 7:00</td>
+                        <td>2시간 몰입 강의 + 1.5시간 복습T 및 클리닉</td>
                     </tr>
                         
-                    <tr>
+                    <tr class="closed">
                         <td><strong>C반</strong></td>
                         <td>오후 6:00 ~ 오후 9:30</td>
                         <td>2시간 몰입 강의 + 1.5시간 복습T 및 클리닉</td>
