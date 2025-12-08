@@ -189,9 +189,9 @@
         .flow-box:active { transform: scale(0.98); }
 
         .flow-box.step-1 {
-            background: linear-gradient(145deg, #ffffff 0%, #f3f6f8 100%);
-            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.12);
-            border: 1px solid rgba(15, 23, 42, 0.05);
+            background: linear-gradient(145deg, #ffffff 20%, #dbeafe 100%);
+            box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.15);
+            border: 1px solid rgba(30, 58, 138, 0.1);
         }
 
         .flow-box.step-2 {
@@ -341,15 +341,24 @@
         .price-desc { font-size: 1rem; color: #94a3b8; font-weight: 500; }
 
         .trial-box {
-            margin-top: 24px;
-            background: #fff;
-            border: 1px solid var(--accent); /* 얇은 라인으로 깔끔하게 */
-            color: var(--primary);
-            padding: 24px;
-            border-radius: var(--radius-md);
-            font-size: 0.95rem;
-            line-height: 1.6;
+            margin-top: 30px;
+            background: #ffffff;      /* 깨끗한 화이트 배경 */
+            border: none;             /* 테두리 제거 */
+            box-shadow: 0 20px 40px -4px rgba(0, 0, 0, 0.08); 
+            border-radius: 32px;      /* 둥근 모서리 강조 */
+            padding: 40px 24px;       /* 내부 여백을 넓혀 여유롭게 */
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .trial-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 150px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.02) 0%, transparent 100%);
+            pointer-events: none;
         }
 
         /* 6. Video: Gallery Style */
@@ -706,12 +715,19 @@
             </div>
 
             <div class="trial-box">
-                <div style="background:var(--accent); color:white; display:inline-block; padding:6px 16px; border-radius:100px; font-weight:700; font-size:0.85rem; margin-bottom:20px;">📢 30분 시범 수업 신청 필수</div>
+                <div style="background:#5c5c5c; color:white; display:inline-block; padding:8px 18px; border-radius:100px; font-weight:700; font-size:0.85rem; margin-bottom:24px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    📢 30분 시범 수업 신청 필수
+                </div>
                 <br>
-                저도 학생과 호흡이 잘 맞는지 확인이 필요하고,<br>
-                학생도 제 수업이 맞는지 들어봐야 합니다.<br><br>
-                <strong>시범 수업은 30분간 무료로 진행됩니다.</strong><br>
-                <span style="opacity:0.6; font-size:0.9rem;">(단, 인원 제한으로 조기 마감될 수 있습니다.)</span>
+                <div style="line-height: 1.8; margin-bottom: 12px;">
+                    저도 학생과 호흡이 잘 맞는지 확인이 필요하고,<br>
+                    학생도 제 수업이 맞는지 들어봐야 합니다.
+                </div>
+                
+                <strong style="font-size: 1.1rem; display:block; margin-bottom: 4px;">
+                    시범 수업은 30분간 무료로 진행됩니다.
+                </strong>
+                <span style="opacity:0.5; font-size:0.85rem;">(단, 인원 제한으로 조기 마감될 수 있습니다.)</span>
             </div>
             
         </section>
